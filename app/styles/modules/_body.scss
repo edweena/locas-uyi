@@ -1,0 +1,47 @@
+.container{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+	.hero{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 9;
+		background: green;
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+	.col{
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		.block{
+			width: 100%;
+			height: 100%;
+			background: green;
+			img{
+				max-width: 100%;
+				height: auto;
+			}
+		}
+	}
+	.col-right{
+		right: 0;
+		background: yellow;
+	}
+	.col-left{
+		left: 0;
+		background: red;
+	}
+}
