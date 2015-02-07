@@ -9,8 +9,6 @@ var Piece = function(){
 
 Piece.prototype = {
 	scrolled: false,
-	contentHeight: 0,
-	prefix: null,
 	introVisible: true,
 	colLeft: $('.col-left'),
 	colRight: $('.col-right'),
@@ -30,6 +28,7 @@ Piece.prototype = {
 
 		$(window).bind('scroll', function(){
 			self.colRight.css('top', (self.scrollSpeed()));
+			$('.intro').fadeOut(500);
 		});
 
 	},
