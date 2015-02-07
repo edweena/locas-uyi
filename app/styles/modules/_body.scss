@@ -1,29 +1,41 @@
 .container{
 	width: 100%;
+	max-width: 100%;
 	height: auto;
 	display: block;
-	position: absolute;
+	position: relative;
+	margin: 0;
+	padding: 0;
 	top: 0;
 	left: 0;
-	overflow: hidden;
-	
-	.col{
-		width: 50%;
+	overflow-x: hidden;
+
+	.col-left{
+		float: left;
 		position: relative;
-		top: 0;
+		width: 50%;
+		background: blue;
 		margin: 0;
-		display: inline-block;
-		&.col-right{
-			float:right;
-		}
-		&.col-left{
-			margin-left: 0;
-		}
+	}
+
+	.col-right{
+		left: 50%;
+		top: 0;
+		position: fixed;
+		width: 50%;
+		margin: 0;
+		padding: 0;
+		background: red;
+	}
+
+	.col{
 		.block{
+			width: 100%;
 			position: relative;
-			overflow: hidden;
+			display: block;
 			img{
 				max-width: 100%;
+				height: auto;
 			}
 		}
 	}

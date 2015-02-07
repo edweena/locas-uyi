@@ -49,24 +49,25 @@ Piece.prototype = {
 
 		
 
-		$(document).on('scroll', function(event){
-			var scrollTop = $(document).scrollTop();
-			var rightOff = $('.col-right').offset().top;
-			var leftOff = $('.col-left').offset().top;
-			var posDiff = rightOff - leftOff;
-			var diff = scrollTop - (Math.abs(posDiff));
-			console.log(scrollTop, diff);
-
-			var avg = diff - Math.abs(posDiff);
-		
-			
-			
-			$('.col-right').transition({
-				y: Math.floor(-diff * (left/right))
-			},0);
-
-			// $('.col-right').offset({top: });
+		$(window).bind('scroll', function(){
+			$('.col-right').css('top', (calculateScrollSpeed()));
 		});
+
+		function calculateScrollSpeed(){
+			var leftPanelHeight = $('.col-left').height();
+			var rightPaneHeight = $('.col-right').height();
+			var browserHeight = $(window).height();
+			console.log(leftPanelHeight, rightPaneHeight, browserHeight);
+
+			
+
+			var leftPaneScrollTop = $(window).scrollTop();
+
+			var diff = (browserHeight - rightPaneHeight) / (browserHeight - leftPanelHeight);
+
+			return -$(window).scrollTop() * diff;
+		}
+
 
 		
 	}
