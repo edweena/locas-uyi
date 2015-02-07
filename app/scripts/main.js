@@ -10,70 +10,58 @@ var Piece = function(){
 Piece.prototype = {
 	scrolled: false,
 	contentHeight: 0,
+	prefix: null,
 	introVisible: true,
-	hero: $('.hero'),
-	frame: $('.container'),
-	left: $('.col-left'),
-	right: $('.col-right'),
-	scrollDist: 0,
-	offset: 0,
+	rightHeight: 0,
+	leftHeight: 0,
 
-
-	render: function(){
-		var self = this;
-
-		self.contentHeight = self.frame[0].scrollHeight;
-
-		self.frame.bind('scroll', function(event){
-			self.hero.hide();
-
-			var scrollPos = self.frame.scrollTop();
-
-			console.log(scrollPos);
-
-			console.log(self.contentHeight);
-
-			if (scrollPos < (self.contentHeight / 2)){
-				
-				self.offset = -scrollPos * 0.2;
-				
-				self.left.transition({
-					y: self.offset
-				},0);
-			}
-
-			else{
-				self.offset = self.offset + (scrollPos * 0.2);
-				self.left.transition({
-					y: self.offset
-				},0);
-			}
-			
-		});
-	},
-
-	preload: function(){
-		var self = this;
-		var image = new Image();
-
-		image.onload = function(){
-
-			setTimeout(function(){
-				self.render();
-			}, 250);
-		};
-
-		//load image
-		image.src = $('.hero').attr('src');
-		self.hero.append(image);
-	},
-	
 
 	init: function(){
+
 		var self = this;
-		console.log('setup');
-		self.preload();
+
+
+		setTimeout(function(){
+			self.rightHeight = $('.col-right')[0].scrollHeight;
+			self.leftHeight = $('.col-left')[0].scrollHeight;
+			console.log(self.rightHeight, self.leftHeight);
+
+			self.setScroll(self.leftHeight, self.rightHeight);
+
+		},200);
+
+		
+	},
+
+	setScroll: function(left, right){
+
+		$('.container').on('scroll', function(event){
+			console.log($('.col-right').offset().top);
+			var scrollTop = $('.container').scrollTop();
+			
+			var leftDiff = left - containerHeight;
+			var leftRatio = (1 / leftDiff) * scrollTop;
+
+			var rightDiff = right - containerHeight;
+			var rightScroll = leftRatio * rightDiff;
+
+			console.log(rightScroll);
+			
+			// $('.col-right').transition({
+			// 	y: -rightScroll / 3
+			// },0);
+
+			$('.col-right').offset({top: -scrollTop * (right / left)});
+		});
+		var containerHeight = $('.container').height();
+		console.log(containerHeight);
+
+		
 	}
 };
 
 new Piece();
+
+
+// 7cols left
+// 11 right
