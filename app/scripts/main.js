@@ -14,6 +14,7 @@ Piece.prototype = {
 	introVisible: true,
 	rightHeight: 0,
 	leftHeight: 0,
+	container: $('.container'),
 
 
 	init: function(){
@@ -22,9 +23,14 @@ Piece.prototype = {
 
 
 		setTimeout(function(){
-			self.rightHeight = $('.col-right')[0].scrollHeight;
-			self.leftHeight = $('.col-left')[0].scrollHeight;
-			console.log(self.rightHeight, self.leftHeight);
+			self.rightHeight = $('.col-right').height();
+			self.leftHeight = $('.col-left').height();
+
+
+			//container should only be as big as small column
+			// $('.container').css({
+			// 	height: self.leftHeight
+			// });
 
 			self.setScroll(self.leftHeight, self.rightHeight);
 
@@ -35,26 +41,32 @@ Piece.prototype = {
 
 	setScroll: function(left, right){
 
-		$('.container').on('scroll', function(event){
-			console.log($('.col-right').offset().top);
-			var scrollTop = $('.container').scrollTop();
-			
-			var leftDiff = left - containerHeight;
-			var leftRatio = (1 / leftDiff) * scrollTop;
+		var self = this;
 
-			var rightDiff = right - containerHeight;
-			var rightScroll = leftRatio * rightDiff;
-
-			console.log(rightScroll);
-			
-			// $('.col-right').transition({
-			// 	y: -rightScroll / 3
-			// },0);
-
-			$('.col-right').offset({top: -scrollTop * (right / left)});
+		self.container.css({
+			'height': left
 		});
-		var containerHeight = $('.container').height();
-		console.log(containerHeight);
+
+		
+
+		$(document).on('scroll', function(event){
+			var scrollTop = $(document).scrollTop();
+			var rightOff = $('.col-right').offset().top;
+			var leftOff = $('.col-left').offset().top;
+			var posDiff = rightOff - leftOff;
+			var diff = scrollTop - (Math.abs(posDiff));
+			console.log(scrollTop, diff);
+
+			var avg = diff - Math.abs(posDiff);
+		
+			
+			
+			$('.col-right').transition({
+				y: Math.floor(-diff * (left/right))
+			},0);
+
+			// $('.col-right').offset({top: });
+		});
 
 		
 	}
