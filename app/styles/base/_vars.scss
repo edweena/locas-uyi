@@ -1,2 +1,9 @@
 $background: white;
 $text: black;
+$pink: #fd03ad;
+$orange: #f2a632;
+
+
+@mixin fast() {
+  @include transform(translate3d(0,0,0));
+}

@@ -13,23 +13,59 @@ Piece.prototype = {
 	colLeft: $('.col-left'),
 	colRight: $('.col-right'),
 	container: $('.container'),
+	loader: $('.loader'),
+	loaderVisible: true,
 
 
 	init: function(){
 
 		var self = this;
 
+		self.preload();
+
+
+	},
+
+	render: function(){
+
+		var self = this;
+
+		self.loader.addClass('hidden');
+		self.loaderVisible = false;
+
+
 		$(window).bind('resize', function() {
-			console.log('resize');
-			self.colRight.css('top', (self.scrollSpeed()));
+			self.colRight.transition({
+				'top': self.scrollSpeed()
+			},0);
 		});
 
-		
 
 		$(window).bind('scroll', function(){
-			self.colRight.css('top', (self.scrollSpeed()));
-			$('.intro').fadeOut(500);
+			self.colRight.transition({
+				'top': self.scrollSpeed()
+			},0);
+			
 		});
+
+
+
+	},
+
+	preload: function(){
+
+		var self = this;
+
+		var image = new Image();
+
+		image.onload = function(){
+
+			setTimeout(function(){
+				self.render();
+			},200);
+		};
+
+		image.src = $('.key').attr('src');
 
 	},
 
