@@ -53,6 +53,7 @@
 	left: 0;
 	-webkit-overflow-scrolling: touch;
 
+
 	.overlay{
 		position: absolute;
 		@include fast();
@@ -143,6 +144,7 @@
 		padding: 0;
 		text-align: right;
 		@include user-select(none);
+
 	}
 
 	.col{
