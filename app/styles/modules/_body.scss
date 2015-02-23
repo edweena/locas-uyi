@@ -127,10 +127,11 @@
 		
 
 	.col-left{
-		float: left;
-		position: relative;
+		left: 0;
+		top: 0;
+		position: absolute;
 		width: 50%;
-
+		max-width: 50%;
 		margin: 0;
 		@include user-select(none);
 	}
@@ -143,12 +144,14 @@
 		margin: 0;
 		padding: 0;
 		text-align: right;
+		max-width: 50%;
 		// @include user-select(none);
 		// @include fast();
 
 	}
 
 	.col{
+		display: inline-block;
 		.block{
 			width: 100%;
 			position: relative;
