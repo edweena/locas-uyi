@@ -43,17 +43,10 @@ Piece.prototype = {
 
 
 		$(window).bind('scroll', function(){
-			var now = new Date().getTime();
-			var diff = now - self.lastCall;
-			console.log(diff);
 
-			if (diff >= 30){
-				self.colRight.transition({
-					'top': self.scrollSpeed()
-				},0, function(){
-					self.lastCall = now;
-				});
-			}
+			self.colRight.transition({
+				'y': self.scrollSpeed()
+			},0);
 		});
 
 
