@@ -15,6 +15,7 @@ Piece.prototype = {
 	container: $('.container'),
 	loader: $('.loader'),
 	loaderVisible: true,
+	lastCall: 0,
 
 
 	init: function(){
@@ -42,10 +43,17 @@ Piece.prototype = {
 
 
 		$(window).bind('scroll', function(){
-			self.colRight.transition({
-				'top': self.scrollSpeed()
-			},0);
-			
+			var now = new Date().getTime();
+			var diff = now - self.lastCall;
+			console.log(diff);
+
+			if (diff >= 30){
+				self.colRight.transition({
+					'top': self.scrollSpeed()
+				},0, function(){
+					self.lastCall = now;
+				});
+			}
 		});
 
 
